@@ -4,18 +4,56 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Weather App</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
     <link
       rel="stylesheet"
+      href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/css/bootstrap.min.css"
     />
+    <link rel="stylesheet" href="./Assets/css/style.css" />
   </head>
   <body>
+    <div class="container">
+      <div class="header-container">
+        <form action="" id="submit-form">
+          <div class="form-group">
+            <div class="input-box">
+              <label for="search-city">Name of country</label
+              ><input
+                type="text"
+                name="search-country"
+                id="search"
+                class="form-control"
+                placeholder="Enter name of country:"
+              />
+              <label for="search-city">Name of city</label
+              ><input
+                type="text"
+                name="search-city"
+                id="search"
+                class="form-control"
+                placeholder="Enter name of city:"
+              />
+            </div>
+            <input type="submit" value="Search" class="btn btn-primary" />
+          </div>
+        </form>
+        <div class="history-container">fdsf</div>
+        <div class="weather-page">
+          <div class="weather-today"></div>
+          <div class="weather-week"></div>
+        </div>
+      </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="./Assets/js/script.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script type="module" src="./Assets/js/script.js"></script>
   </body>
 </html>
