@@ -92,6 +92,7 @@ label {
 .week-container .card img {
   width: fit-content;
   height: fit-content;
+  margin: auto;
 }
 
 .list-elements {

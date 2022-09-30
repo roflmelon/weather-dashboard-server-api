@@ -197,9 +197,7 @@ function displayFiveDays(data) {
 //display search history buttons
 function displaySearchHistory() {
   let searchHistory = JSON.parse(localStorage.getItem('search-history'));
-  let city;
-  let country;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city},${country}&cnt=48&appid=${apiKey}`;
+  $('.history-container').empty();
 
   for (let i = 0; i < searchHistory.length; i++) {
     $('<button>')
@@ -243,13 +241,3 @@ $('#search-country').autocomplete(
 //------------------------------------eventlisteners and invoking functions
 displaySearchHistory();
 form.on('submit', search);
-
-/*
-need:
--5 days
--city
--temp
--wind
--himidity
--icon of weather
-*/
