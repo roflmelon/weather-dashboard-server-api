@@ -29,7 +29,7 @@
               ><input
                 type="text"
                 name="search-country"
-                id="search"
+                id="search-country"
                 class="form-control"
                 placeholder="Enter name of country:"
               />
@@ -37,7 +37,7 @@
               ><input
                 type="text"
                 name="search-city"
-                id="search"
+                id="search-city"
                 class="form-control"
                 placeholder="Enter name of city:"
               />
@@ -45,10 +45,17 @@
             <input type="submit" value="Search" class="btn btn-primary" />
           </div>
         </form>
-        <div class="history-container">fdsf</div>
+        <p id="display-msg"></p>
+        <div class="history-container"><span>history goes here</span></div>
         <div class="weather-page">
-          <div class="weather-today"></div>
-          <div class="weather-week"></div>
+          <div class="weather-today">
+            <section class="today-container">
+              Today's weather card goes here
+            </section>
+          </div>
+          <div class="weather-week">
+            <section class="week-container">week's weather goes here</section>
+          </div>
         </div>
       </div>
     </div>
