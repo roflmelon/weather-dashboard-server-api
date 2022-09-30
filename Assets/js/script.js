@@ -2,11 +2,18 @@
 let form = $('#submit-form');
 let searchInput = $('#search');
 let displayMsg = $('#display-msg');
+let todayDate = $('#today-date');
+let firstDay = $('#first-day');
+let secondDay = $('#second-day');
+let thirdDay = $('#third-day');
+let fourthDay = $('#fourth-day');
+let fifthDay = $('#fifth-day');
 //-----------------------------------------variables
 let countryObj;
 let countryList = [];
 let city;
 let apiKey = '9d958ab6b111a198ae00aab196b2c850';
+let dateTime = luxon.DateTime;
 //-----------------------------------------functions
 function search(event) {
   //prevent refresh
@@ -15,6 +22,7 @@ function search(event) {
   let inputCity = event.target[1].value.trim();
   if (inputCountry === '' || inputCity === '') {
     alert('Please fill out all the required forms');
+    displayWeather();
   } else {
     for (let i = 0; i < countryObj.length; i++) {
       if (
@@ -27,7 +35,7 @@ function search(event) {
         inputCountry.length < 3 &&
         countryObj[i].Code.toLowerCase() === inputCountry.toLowerCase()
       ) {
-        let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity},${countryObj[i].Code}&appid=${apiKey}`;
+        let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity},${countryObj[i].Code}&cnt=48&appid=${apiKey}`;
 
         getWeather(apiUrl);
       }
@@ -97,8 +105,118 @@ function saveHistory(data) {
     }
   }
 }
-function displayWeather() {}
-function displaySearchHistory() {}
+//displays weather
+function displayWeather(data) {
+  //3 hours per call, 8 calls per day, 40 calls per 5 days
+  let date;
+  let temp;
+  let wind;
+  let humidity;
+  let icon;
+  removeAllPrevious();
+  displayToday(data);
+  displayFiveDays(data);
+}
+
+function removeAllPrevious() {
+  $('.card').remove();
+}
+function displayToday(data) {
+  $('<div>')
+    .addClass('card today-card')
+    .css({ width: '100%', height: 'fit-content' })
+    .appendTo('.today-container');
+  $('<img>')
+    .attr(
+      'src',
+      `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@4x.png`
+    )
+    .appendTo('.today-card');
+  $('<div>').addClass('card-body today-card-body').appendTo('.today-card');
+  $('<h5>')
+    .addClass('card-title')
+    .text(
+      data.city.name +
+        ': ' +
+        dateTime.fromSeconds(data.list[0].dt).setLocale('en-CA').toFormat('DD')
+    )
+    .appendTo('.today-card-body');
+  $('<ul>').addClass('list-elements').appendTo('.today-card-body');
+  $('<li>')
+    .text('Temperature: ' + Math.round(data.list[0].main.temp - 273.15) + '°C')
+    .appendTo('.list-elements');
+  $('<li>')
+    .text('Wind Speed: ' + data.list[0].wind.speed + ' m/s')
+    .appendTo('.list-elements');
+  $('<li>')
+    .text('Humidity: ' + data.list[0].main.humidity + '%')
+    .appendTo('.list-elements');
+}
+function displayFiveDays(data) {
+  for (let i = -1; i < data.list.length; i += 8) {
+    if (i >= 0) {
+      $('<div>')
+        .addClass(`card week-card${i}`)
+        .css({ width: '50%', height: 'fit-content' })
+        .appendTo('.week-container');
+      $('<img>')
+        .attr(
+          'src',
+          `https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png`
+        )
+        .appendTo(`.week-card${i}`);
+      $('<div>')
+        .addClass(`card-body week-card-body${i}`)
+        .appendTo(`.week-card${i}`);
+      $('<h5>')
+        .addClass('card-title')
+        .text(
+          dateTime
+            .fromSeconds(data.list[i].dt)
+            .setLocale('en-CA')
+            .toFormat('DD')
+        )
+        .appendTo(`.week-card-body${i}`);
+      $('<ul>')
+        .addClass(`list-elements week-elements${i}`)
+        .appendTo(`.week-card-body${i}`);
+      $('<li>')
+        .text(
+          'Temperature: ' + Math.round(data.list[i].main.temp - 273.15) + '°C'
+        )
+        .appendTo(`.week-elements${i}`);
+      $('<li>')
+        .text('Wind Speed: ' + data.list[i].wind.speed + ' m/s')
+        .appendTo(`.week-elements${i}`);
+      $('<li>')
+        .text('Humidity: ' + data.list[i].main.humidity + '%')
+        .appendTo(`.week-elements${i}`);
+    }
+  }
+}
+//display search history buttons
+function displaySearchHistory() {
+  let searchHistory = JSON.parse(localStorage.getItem('search-history'));
+  let city;
+  let country;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city},${country}&cnt=48&appid=${apiKey}`;
+
+  for (let i = 0; i < searchHistory.length; i++) {
+    $('<button>')
+      .addClass('historyBtn')
+      .attr('data-city', searchHistory[i].name)
+      .attr('data-country', searchHistory[i].country)
+      .text(searchHistory[i].country + ' - ' + searchHistory[i].name)
+      .appendTo('.history-container');
+  }
+}
+
+$('.history-container').on('click', '.historyBtn', (event) => {
+  let city = $(event.target).data('city');
+  let country = $(event.target).data('country');
+  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city},${country}&cnt=48&appid=${apiKey}`;
+  getWeather(apiUrl);
+});
 //displays error message on screen
 function displayUserMsg(msg) {
   displayMsg.text(msg);
@@ -122,7 +240,8 @@ $('#search-country').autocomplete(
   // autofocus is for auto selecting the first result that pops up
   { minLength: 2, autoFocus: true }
 );
-//------------------------------------eventlisteners
+//------------------------------------eventlisteners and invoking functions
+displaySearchHistory();
 form.on('submit', search);
 
 /*

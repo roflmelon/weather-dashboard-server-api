@@ -1,10 +1,7 @@
-* {
-}
-
 .container {
   background-color: skyblue;
   width: 100vw;
-  height: 100vh;
+  height: fit-content;
   display: flex;
   justify-content: center;
 }
@@ -29,14 +26,20 @@ label {
   align-items: center;
 }
 .history-container {
-  background-color: grey;
   width: 100%;
   height: fit-content;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+}
+.history-container button {
+  margin: 0.2rem 0.5rem;
+  padding: 0.3rem;
+  border-radius: 8px;
+  border: 0px none;
+  box-shadow: 0px 0px 5px 0.5px grey;
 }
 .weather-page {
-  background-color: blue;
   width: 100%;
   height: 100%;
   margin: 2rem;
@@ -44,19 +47,59 @@ label {
   flex-direction: column;
 }
 .weather-today {
-  background-color: green;
   align-items: center;
   justify-content: center;
   margin: auto;
-  width: 50%;
+  width: 100%;
   height: 100%;
   display: flex;
 }
 .weather-week {
-  background-color: yellow;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* weather cards */
+.today-container {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  text-align: center;
+}
+.today-container .card {
+  flex-direction: row;
+  justify-content: center;
+}
+.today-container img {
+  width: fit-content;
+  height: 100%;
+  margin: auto;
+}
+
+.week-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.card {
+  background-color: lightblue;
+}
+.week-container .card {
+  width: 50%;
+}
+.week-container .card img {
+  width: fit-content;
+  height: fit-content;
+}
+
+.list-elements {
+  list-style: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .today-container .card {
+    flex-direction: column;
+  }
 }
