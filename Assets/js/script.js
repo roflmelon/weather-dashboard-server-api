@@ -198,14 +198,15 @@ function displayFiveDays(data) {
 function displaySearchHistory() {
   let searchHistory = JSON.parse(localStorage.getItem('search-history'));
   $('.history-container').empty();
-
-  for (let i = 0; i < searchHistory.length; i++) {
-    $('<button>')
-      .addClass('historyBtn')
-      .attr('data-city', searchHistory[i].name)
-      .attr('data-country', searchHistory[i].country)
-      .text(searchHistory[i].country + ' - ' + searchHistory[i].name)
-      .appendTo('.history-container');
+  if (searchHistory !== null) {
+    for (let i = 0; i < searchHistory.length; i++) {
+      $('<button>')
+        .addClass('historyBtn')
+        .attr('data-city', searchHistory[i].name)
+        .attr('data-country', searchHistory[i].country)
+        .text(searchHistory[i].country + ' - ' + searchHistory[i].name)
+        .appendTo('.history-container');
+    }
   }
 }
 

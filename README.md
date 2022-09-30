@@ -2,32 +2,31 @@
 
 ## This is made with JavaScript, JQuery, JQueryUI, Luxon, BootStrap and ❤️.
 
-![me](./Assets/Screenshot_1.jpg)
+![me](./Assets/documentation/Screenshot_2.jpg)
 
 ## Description
 
 Github:
-https://github.com/roflmelon/jquery-bootstrap-work-scheduler
+https://github.com/roflmelon/weather-dashboard-server-api
 
-Live Link: https://roflmelon.github.io/jquery-bootstrap-work-scheduler/
+Live Link: https://roflmelon.github.io/weather-dashboard-server-api/
 
 ## Installation
 
-None required.
+None required. Simply search.
 
 ## Usage
 
 ```
-Current time will be shown in orange.
-Past time will be shown in grey.
-future available time will be in blue.
+Use the search bar to search for a city from a country.
 
-Once the time passes the current hour. All time slots will be disabled and grey.
+It will show the weather for current day and 5 days from today.
 
-To save a new schedule or task, simply type in task and save.
-Once that's done it will be shown in green.
+After you search, your search history will be saved below the form as a button.
 
-ENJOY!!!
+Click the button to revisit your previous search results.
+
+ENJOY!!!❤️
 ```
 
 ## Contributing
