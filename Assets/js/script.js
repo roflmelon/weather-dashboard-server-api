@@ -207,6 +207,8 @@ function displaySearchHistory() {
         .text(searchHistory[i].country + ' - ' + searchHistory[i].name)
         .appendTo('.history-container');
     }
+  } else {
+    return;
   }
 }
 
